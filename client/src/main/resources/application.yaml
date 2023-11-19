@@ -1,0 +1,31 @@
+feign:
+  server:
+    client:
+      url: localhost:9001
+    clientWithFallback:
+      url: localhost:8081
+
+spring:
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true #enable circuitbreaker so fallbacks would work with feign client
+#        config:
+#you can configure feign client in properties, like below, or in java files
+#          testFeignClient:
+#            request-interceptors:
+#              - com.example.client.interceptor.FeignClientRequestInterceptor
+#          clientWithFallback:
+
+
+#For enable logging working in Feign clients you have to set it here to DEBUG, and create @Bean
+# of Logger.Level, see FeignClientConfiguration
+logging:
+  level:
+    com.example.client.client.Client: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
